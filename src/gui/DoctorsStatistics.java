@@ -60,7 +60,7 @@ public class DoctorsStatistics extends JFrame {
     }
 
     private void fetchDoctors() {
-        UserController.handleGetAllDoctors(table1);
+        UserController.handleGetAllDoctors(table1, false);
     }
 
 }

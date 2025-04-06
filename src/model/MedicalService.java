@@ -1,0 +1,47 @@
+package model;
+
+public class MedicalService {
+    private int id;
+    private String name;
+    private float price;
+    private int duration;
+
+    public MedicalService(String name, float price, int duration) {
+        this.name = name;
+        this.price = price;
+        this.duration = duration;
+    }
+
+    public MedicalService(int id, String name, float price, int duration) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.duration = duration;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public float getPrice() {
+        return price;
+    }
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+}

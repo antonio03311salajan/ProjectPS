@@ -95,22 +95,54 @@ public class UserController {
         return userService.getUserCountBySpecialty(specialty);
     }
 
-    public static void handleGetAllDoctors(JTable table) {
+    public static void handleGetAllDoctors(JTable table, boolean receptionistView) {
         List<User> users = UserService.getAllByRole(RoleEnum.DOCTOR);
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
 
+        if(!receptionistView) {
+            for (User user : users) {
+                System.out.println(user);
+                tableModel.addRow(new Object[]{
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getRole().name(),
+                        user.getSpecialty().name(),
+                        user.getShift(),
+                        0
+                });
+            }
+        }
+        else{
+            for (User user : users) {
+                System.out.println(user);
+                tableModel.addRow(new Object[]{
+                        user.getId(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getRole().name(),
+                        user.getSpecialty().name(),
+                        user.getShift()
+                });
+            }
+        }
+    }
+
+    public static void handleGetAllPatients(JTable table) {
+        List<User> users = UserService.getAllByRole(RoleEnum.USER);
+
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+
         for (User user : users) {
-            System.out.println(user);
             tableModel.addRow(new Object[]{
+                    user.getId(),
                     user.getFirstName(),
                     user.getLastName(),
-                    user.getEmail(),
-                    user.getRole().name(),
-                    user.getSpecialty().name(),
-                    user.getShift(),
-                    0
+                    user.getEmail()
             });
         }
     }

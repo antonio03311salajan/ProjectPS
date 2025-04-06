@@ -42,6 +42,7 @@ public class LoginPage extends JFrame {
                             break;
                         case RECEPTIONIST:
                             ReceptionistDashboard receptionistDashboard = new ReceptionistDashboard(loggedUser);
+                            break;
                         default:
                             System.out.println("Unknown role, please contact support.");
                             break;

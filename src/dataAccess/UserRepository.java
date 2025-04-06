@@ -212,8 +212,8 @@ public class UserRepository {
                             rs.getString("lastName"),
                             rs.getString("cnp"),
                             rs.getString("phoneNumber"),
-                            SpecialtyEnum.valueOf(rs.getString("specialty")),
-                            rs.getInt("shift")
+                            rs.getString("specialty") == null ? SpecialtyEnum.ONCOLOGIST : SpecialtyEnum.valueOf(rs.getString("specialty")),
+                            (rs.getObject("shift") == null ? 0 : (Integer) rs.getObject("shift"))
                     );
                     users.add(user);
                 }

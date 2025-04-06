@@ -127,7 +127,7 @@ public class AdminDashboardPage extends JFrame {
 
         medicalServicesButton.addActionListener(e -> {
             dispose();
-//            MedicalServicesPage medicalServicesPage = new MedicalServicesPage(user);
+            MedicalServicesPage medicalServicesPage = new MedicalServicesPage(user);
         });
 
         setVisible(true);
