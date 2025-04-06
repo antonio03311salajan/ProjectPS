@@ -1,6 +1,7 @@
 package business;
 
 import model.RoleEnum;
+import model.SpecialtyEnum;
 import model.User;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dataAccess.UserRepository;
@@ -22,7 +23,8 @@ public class UserService {
 
     public static boolean registerUser(String username, String email,
                                        RoleEnum role, String firstName,
-                                       String lastName, String cnp, String phoneNumber) {
+                                       String lastName, String cnp, String phoneNumber, SpecialtyEnum specialty,
+                                       int shift) {
         if (username.isEmpty() || email.isEmpty()) {
             System.out.println("Error: Username, email, and password cannot be empty!");
             return false;
@@ -36,7 +38,7 @@ public class UserService {
             return false;
         }
 
-        User user = new User( username, email, null, role, firstName, lastName, cnp, phoneNumber);
+        User user = new User( 0,username, email, null, role, firstName, lastName, cnp, phoneNumber, specialty, shift);
         return userRepository.saveUser(user);
     }
 

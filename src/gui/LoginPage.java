@@ -14,7 +14,7 @@ public class LoginPage extends JFrame {
     private JButton logInButton;
     private JButton signUpButton;
     private JPasswordField passwordF;
-    private static final int WIDTH=1920;
+    private static final int WIDTH=1720;
     private static final int HEIGHT=1020;
 
     public LoginPage() {

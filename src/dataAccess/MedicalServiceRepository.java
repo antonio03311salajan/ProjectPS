@@ -51,4 +51,18 @@ public class MedicalServiceRepository {
 
         return services;
     }
+
+    public boolean deleteById(int id) {
+        String sql = "DELETE FROM service WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

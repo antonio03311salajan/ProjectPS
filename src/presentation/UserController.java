@@ -2,12 +2,15 @@ package presentation;
 
 import business.UserService;
 import model.RoleEnum;
+import model.SpecialtyEnum;
 import model.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import java.util.Optional;
+
+import static utils.UserFunctions.getTimeFromShift;
 
 public class UserController {
     private static final UserService userService = new UserService();
@@ -26,10 +29,10 @@ public class UserController {
 
 
     public static boolean handleRegister(String username, String email, String password, RoleEnum role,
-                                      String firstName, String lastName,
-                                      String cnp, String phoneNumber) {
+                                         String firstName, String lastName,
+                                         String cnp, String phoneNumber, SpecialtyEnum specialty, int shift) {
         boolean success = UserService.registerUser(username, email, role,
-                firstName, lastName, cnp, phoneNumber);
+                firstName, lastName, cnp, phoneNumber, specialty, shift);
 
         if (success) {
             System.out.println("User registered successfully!");
@@ -110,8 +113,8 @@ public class UserController {
                         user.getEmail(),
                         user.getRole().name(),
                         user.getSpecialty().name(),
-                        user.getShift(),
-                        0
+                        getTimeFromShift(user.getShift()),
+                        AppointmentController.handleGetAppointmentCountForDoctor(user.getId())
                 });
             }
         }

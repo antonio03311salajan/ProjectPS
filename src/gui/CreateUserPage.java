@@ -1,6 +1,7 @@
 package gui;
 
 import model.RoleEnum;
+import model.SpecialtyEnum;
 import model.User;
 import presentation.UserController;
 
@@ -20,8 +21,10 @@ public class CreateUserPage extends JFrame {
     private JComboBox<RoleEnum> roleC;
     private JButton addUserButton;
     private JButton backButton;
+    private JComboBox scheduleComboBox;
+    private JComboBox<SpecialtyEnum> specialtyCombobox;
 
-    private static final int WIDTH = 1920;
+    private static final int WIDTH = 1720;
     private static final int HEIGHT = 1080;
 
     public CreateUserPage(User user) {
@@ -32,6 +35,9 @@ public class CreateUserPage extends JFrame {
         this.setResizable(false);
 
         roleC.setModel(new DefaultComboBoxModel<>(RoleEnum.values()));
+        specialtyCombobox.setModel(new DefaultComboBoxModel<>(SpecialtyEnum.values()));
+        specialtyCombobox.setEnabled(false);
+        scheduleComboBox.setEnabled(false);
 
         this.setVisible(true);
 
@@ -45,12 +51,14 @@ public class CreateUserPage extends JFrame {
                 String cnp = cnpTf.getText();
                 String phoneNo = phoneNoTf.getText();
                 RoleEnum selectedRole = (RoleEnum) roleC.getSelectedItem();
+                SpecialtyEnum selectedSpecialty = (SpecialtyEnum) specialtyCombobox.getSelectedItem();
+                int shift = scheduleComboBox.getSelectedIndex();
 
                 User existinguser = UserController.handleFindUserByEmail(email);
                 if (existinguser != null) {
                     JOptionPane.showMessageDialog(mainPanel, "User with this email already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                 }else {
-                    boolean userCreated = UserController.handleRegister(username, email, null, selectedRole, firstName, lastName, cnp, phoneNo);
+                    boolean userCreated = UserController.handleRegister(username, email, null, selectedRole, firstName, lastName, cnp, phoneNo , selectedSpecialty, shift);
                     if (userCreated) {
                         clearData();
                         JOptionPane.showMessageDialog(mainPanel, "User created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -65,6 +73,22 @@ public class CreateUserPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 AdminDashboardPage adminDashboardPage = new AdminDashboardPage(user);
+            }
+        });
+        roleC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object selectedItem = roleC.getSelectedItem();
+                if (selectedItem instanceof RoleEnum) {
+                    RoleEnum selectedRole = (RoleEnum) selectedItem;
+                    if (selectedRole == RoleEnum.DOCTOR) {
+                        specialtyCombobox.setEnabled(true);
+                        scheduleComboBox.setEnabled(true);
+                    } else {
+                        specialtyCombobox.setEnabled(false);
+                        scheduleComboBox.setEnabled(false);
+                    }
+                }
             }
         });
     }

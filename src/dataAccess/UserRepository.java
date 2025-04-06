@@ -65,7 +65,7 @@ public class UserRepository {
     }
 
     public boolean saveUser(User user) {
-        String query = "INSERT INTO user (username, email, password, role, firstName, lastName, cnp, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO user (username, email, password, role, firstName, lastName, cnp, phoneNumber, specialty, shift) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getUsername());
@@ -76,6 +76,8 @@ public class UserRepository {
             stmt.setString(6, user.getLastName());
             stmt.setString(7, user.getCnp());
             stmt.setString(8, user.getPhoneNumber());
+            stmt.setString(9, user.getSpecialty().name());
+            stmt.setInt(10, user.getShift());
 
             stmt.executeUpdate();
             return true;
@@ -84,6 +86,7 @@ public class UserRepository {
         }
         return false;
     }
+
 
     public boolean updatePassword(String email, String newPassword) {
         String hashedPassword = at.favre.lib.crypto.bcrypt.BCrypt.withDefaults()

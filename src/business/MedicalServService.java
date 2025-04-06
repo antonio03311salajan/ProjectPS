@@ -16,4 +16,9 @@ public class MedicalServService {
     public List<MedicalService> getAllServices() {
         return repository.getAllMedicalServices();
     }
+
+    public boolean deleteMedicalServiceById(int id) {
+        return repository.deleteById(id);
+    }
+
 }

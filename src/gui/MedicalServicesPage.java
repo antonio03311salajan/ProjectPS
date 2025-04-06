@@ -3,9 +3,12 @@ package gui;
 import model.MedicalService;
 import model.User;
 import presentation.MedicalServiceController;
+import presentation.UserController;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +19,7 @@ public class MedicalServicesPage extends JFrame {
     private JButton addButton;
     private JButton deleteButton;
     private JButton updateButton;
+    private JButton backButton;
     private JTextField tfName;
     private JTextField tfPrice;
     private JTextField tfDuration;
@@ -25,7 +29,7 @@ public class MedicalServicesPage extends JFrame {
     private JPanel tfPanel;
     private JPanel topPanel;
 
-    private static final int WIDTH = 1920;
+    private static final int WIDTH = 1720;
     private static final int HEIGHT = 1020;
 
     public MedicalServicesPage(User user) {
@@ -50,8 +54,8 @@ public class MedicalServicesPage extends JFrame {
         updateButton = new JButton("Update");
 
         buttonsPanel.add(addButton);
-        buttonsPanel.add(deleteButton);
-        buttonsPanel.add(updateButton);
+//        buttonsPanel.add(deleteButton);
+//        buttonsPanel.add(updateButton);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(tablePanel, BorderLayout.CENTER);
@@ -59,7 +63,14 @@ public class MedicalServicesPage extends JFrame {
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         topPanel.setLayout(new BorderLayout());
-        topPanel.add(tfPanel, BorderLayout.WEST);
+
+        backButton = new JButton("Back");
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        backButtonPanel.add(backButton);
+        topPanel.add(backButtonPanel, BorderLayout.WEST);
+
+        tfPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 200));
+        topPanel.add(tfPanel, BorderLayout.EAST);
 
         refreshMedicalServices();
 
@@ -68,6 +79,36 @@ public class MedicalServicesPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 addMedicalService();
                 refreshMedicalServices();
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminDashboardPage adminDashboardPage = new AdminDashboardPage(user);
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                TableModel model = table1.getModel();
+                if (selectedRow != -1){
+                    try {
+                        int id =  Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
+                        boolean deleted = MedicalServiceController.handleDeleteMedicalServiceById(id);
+                        if (deleted) {
+                            JOptionPane.showMessageDialog(null, "Medical service deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            refreshMedicalServices();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Failed to delete medical service. ID may not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Invalid ID. Please enter a number.", "Input Error", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
             }
         });
 

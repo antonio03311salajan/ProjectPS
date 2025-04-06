@@ -15,7 +15,7 @@ public class AdminDashboardPage extends JFrame {
     private JButton receptionistsButton;
     private JButton patientsButton;
     private JButton medicalServicesButton;
-    private static final int WIDTH = 1920;
+    private static final int WIDTH = 1720;
     private static final int HEIGHT = 1080;
 
     public AdminDashboardPage(User user) {
@@ -47,10 +47,10 @@ public class AdminDashboardPage extends JFrame {
 
         gbc.gridy = 0;
         sidePanel.add(doctorsButton, gbc);
-        gbc.gridy = 1;
-        sidePanel.add(receptionistsButton, gbc);
-        gbc.gridy = 2;
-        sidePanel.add(patientsButton, gbc);
+//        gbc.gridy = 1;
+//        sidePanel.add(receptionistsButton, gbc);
+//        gbc.gridy = 2;
+//        sidePanel.add(patientsButton, gbc);
         gbc.gridy = 3;
         sidePanel.add(medicalServicesButton, gbc);
 

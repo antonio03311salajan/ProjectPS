@@ -17,7 +17,7 @@ public class UpdateUserPage extends JFrame{
     private JTextField phoneNoTf;
     private JButton updateButton;
     private JButton backButton;
-    public static final int WIDTH=1920;
+    public static final int WIDTH=1720;
     public static final int HEIGHT=1020;
 
     public UpdateUserPage(User editor, User user) {

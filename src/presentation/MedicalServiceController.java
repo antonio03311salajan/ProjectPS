@@ -21,4 +21,8 @@ public class MedicalServiceController {
     public static List<MedicalService> handleGetAllMedicalServices() {
         return service.getAllServices();
     }
+
+    public static boolean handleDeleteMedicalServiceById(int id) {
+        return service.deleteMedicalServiceById(id);
+    }
 }

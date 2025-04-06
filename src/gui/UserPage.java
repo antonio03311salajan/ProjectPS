@@ -14,7 +14,7 @@ public class UserPage extends JFrame{
     private JLabel lastnameTf;
     private JPanel mainPanel;
     private JTable table1;
-    public static final int WIDTH=1920;
+    public static final int WIDTH=1720;
     public static final int HEIGHT=1080;
 
     public UserPage(User user) {

@@ -21,7 +21,7 @@ public class DoctorsStatistics extends JFrame {
     private JScrollPane scrollPane;
     private JTable table2;
 
-    private static final int WIDTH = 1920;
+    private static final int WIDTH = 1720;
     private static final int HEIGHT = 1080;
 
     public DoctorsStatistics(User user) {
