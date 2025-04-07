@@ -149,4 +149,9 @@ public class UserController {
             });
         }
     }
+
+    public static User handleGetUserById(int id) {
+        return UserService.getUserById(id)
+                .orElse(null);
+    }
 }

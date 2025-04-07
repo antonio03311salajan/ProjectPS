@@ -179,11 +179,16 @@ public class ReceptionistDashboard extends JFrame {
         DefaultTableModel model = (DefaultTableModel) appointmentsTable.getModel();
         model.setRowCount(0);
 
+
         for (Appointment appointment : AppointmentController.handleGetAllAppointments()) {
+            User patient = UserController.handleGetUserById(appointment.getPatientId());
+            User doctor = UserController.handleGetUserById(appointment.getDoctorId());
+
+
             model.addRow(new Object[]{
                     appointment.getId(),
-                    appointment.getPatientId(),
-                    appointment.getDoctorId(),
+                    patient.getLastName() + " " + patient.getFirstName(),
+                    doctor.getLastName() + " " + doctor.getFirstName(),
                     appointment.getServiceId(),
                     appointment.getDate(),
                     appointment.getTime(),

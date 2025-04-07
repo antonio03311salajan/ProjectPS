@@ -2,6 +2,7 @@ package presentation;
 
 import business.MedicalServService;
 import model.MedicalService;
+import model.User;
 
 import java.util.List;
 

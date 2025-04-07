@@ -177,7 +177,7 @@ public class UserRepository {
     }
 
     public int countUsersBySpecialty(String specialty) {
-        String query = "SELECT COUNT(*) FROM user WHERE specialty = ?";
+        String query = "SELECT COUNT(*) FROM user WHERE specialty = ? AND role = 'DOCTOR'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 

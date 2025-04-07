@@ -130,4 +130,8 @@ public class UserService {
         return userRepository.findUsersByRole(role);
     }
 
+
+    public static Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
+    }
 }

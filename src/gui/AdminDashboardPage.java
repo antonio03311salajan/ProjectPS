@@ -15,6 +15,8 @@ public class AdminDashboardPage extends JFrame {
     private JButton receptionistsButton;
     private JButton patientsButton;
     private JButton medicalServicesButton;
+    private  JButton logoutButton;
+    private JButton reportsButton;
     private static final int WIDTH = 1720;
     private static final int HEIGHT = 1080;
 
@@ -38,16 +40,30 @@ public class AdminDashboardPage extends JFrame {
         receptionistsButton = new JButton("Receptionists");
         patientsButton = new JButton("Patients");
         medicalServicesButton = new JButton("Manage Medical Services");
+        logoutButton = new JButton("Logout");
+        reportsButton = new JButton("Reports");
+
+        logoutButton.setPreferredSize(new Dimension(100, 30));
+        logoutButton.addActionListener(e -> {
+            dispose();
+            new LoginPage();
+        });
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.add(logoutButton);
+        mainPanel.add(topPanel, BorderLayout.NORTH);
 
         Dimension buttonSize = new Dimension(180, 40);
         doctorsButton.setPreferredSize(buttonSize);
         receptionistsButton.setPreferredSize(buttonSize);
         patientsButton.setPreferredSize(buttonSize);
         medicalServicesButton.setPreferredSize(buttonSize);
+        reportsButton.setPreferredSize(buttonSize);
 
         gbc.gridy = 0;
         sidePanel.add(doctorsButton, gbc);
-//        gbc.gridy = 1;
+        gbc.gridy = 1;
+        sidePanel.add(reportsButton, gbc);
 //        sidePanel.add(receptionistsButton, gbc);
 //        gbc.gridy = 2;
 //        sidePanel.add(patientsButton, gbc);
@@ -128,6 +144,11 @@ public class AdminDashboardPage extends JFrame {
         medicalServicesButton.addActionListener(e -> {
             dispose();
             MedicalServicesPage medicalServicesPage = new MedicalServicesPage(user);
+        });
+
+        reportsButton.addActionListener( e -> {
+            dispose();
+            ReportsPage reportsPage = new ReportsPage(user);
         });
 
         setVisible(true);

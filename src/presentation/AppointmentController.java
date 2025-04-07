@@ -20,4 +20,8 @@ public class AppointmentController {
     public static int handleGetAppointmentCountForDoctor(int doctorId) {
         return service.getAppointmentCountForDoctor(doctorId);
     }
+
+    public static List<Appointment> fetchAppointmentsBetweenDates(String startDate, String endDate) {
+        return service.getAppointmentsBetweenDates(startDate, endDate);
+    }
 }

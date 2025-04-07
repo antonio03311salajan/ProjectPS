@@ -20,4 +20,7 @@ public class AppointmentService {
         return repository.countAppointmentsByDoctorId(doctorId);
     }
 
+    public List<Appointment> getAppointmentsBetweenDates(String startDate, String endDate) {
+        return repository.findAppointmentsBetweenDates(startDate, endDate);
+    }
 }

@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,5 +81,47 @@ public class AppointmentRepo {public boolean createAppointment(Appointment appoi
         }
 
         return count;
+    }
+
+    public List<Appointment> findAppointmentsBetweenDates(String startDate, String endDate) {
+        List<Appointment> appointments = new ArrayList<>();
+        DateTimeFormatter dbFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            LocalDate start = LocalDate.parse(startDate, dbFormat);
+            LocalDate end = LocalDate.parse(endDate, dbFormat);
+
+            String query = "SELECT * FROM appointment";
+
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(query);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    String dateStr = rs.getString("date");
+                    LocalDate appointmentDate = LocalDate.parse(dateStr, dbFormat);
+
+                    if ((appointmentDate.isEqual(start) || appointmentDate.isAfter(start)) &&
+                            (appointmentDate.isEqual(end) || appointmentDate.isBefore(end))) {
+
+                        appointments.add(new Appointment(
+                                rs.getString("date"),
+                                rs.getString("time"),
+                                rs.getInt("patientId"),
+                                rs.getInt("doctorId"),
+                                rs.getInt("service")
+                        ));
+                    }
+                }
+
+            } catch (SQLException | DateTimeParseException e) {
+                System.out.println("Error while querying DB: " + e.getMessage());
+            }
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date input format. Use dd/MM/yyyy");
+        }
+
+        return appointments;
     }
 }
